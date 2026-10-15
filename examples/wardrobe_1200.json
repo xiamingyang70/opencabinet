@@ -1,0 +1,52 @@
+{
+ "board_thickness": 18,
+ "gap": 2.5,
+ "plinth_height": 60,
+ "back": "grooved_10",
+ "id": "sw",
+ "cabinet_type": "wardrobe",
+ "width": 1200,
+ "depth": 580,
+ "height": 2400,
+ "functions": [
+  "hang",
+  "fold"
+ ],
+ "style": {
+  "doors": {
+   "mode": "full_height",
+   "count": 2,
+   "gap": 2.5
+  },
+  "drawer": {
+   "count": 0
+  },
+  "hang_columns": [
+   0
+  ],
+  "fold": {
+   "column": 1,
+   "top": true
+  }
+ },
+ "column_count": 2,
+ "column_widths": [
+  573.0,
+  573.0
+ ],
+ "facade_openings": [
+  {
+   "bay_indices": [
+    0
+   ],
+   "door_count": 1
+  },
+  {
+   "bay_indices": [
+    1
+   ],
+   "door_count": 1
+  }
+ ],
+ "door_count": 2
+}

@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opencabinet"
+version = "0.1.0"
+description = "Parametric wardrobe generator with verified structural correctness: solve, export FreeCAD models with real back-panel grooves, and verify interference / dimension chains."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+keywords = ["furniture", "wardrobe", "parametric", "freecad", "cutlist", "cabinet"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Manufacturing",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Computer Aided Design (CAD)",
+]
+
+[project.scripts]
+opencabinet = "opencabinet.cli:main"
+opencabinet-mcp = "opencabinet.mcp_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

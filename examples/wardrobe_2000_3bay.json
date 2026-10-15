@@ -1,0 +1,48 @@
+{
+ "id": "tpl_demo",
+ "cabinet_type": "wardrobe",
+ "width": 2000,
+ "depth": 580,
+ "height": 2400,
+ "board_thickness": 18,
+ "gap": 2.5,
+ "plinth_height": 60,
+ "back": "grooved_10",
+ "functions": [
+  "hang",
+  "fold",
+  "door"
+ ],
+ "style": {
+  "doors": {
+   "mode": "full_height",
+   "gap": 2.5
+  },
+  "drawer": {
+   "count": 0
+  },
+  "hang_columns": [
+   1
+  ],
+  "fold": {
+   "column": 0,
+   "top": true
+  }
+ },
+ "column_count": 3,
+ "column_widths": [
+  642.67,
+  642.67,
+  642.66
+ ],
+ "facade_openings": [
+  {
+   "bay_indices": [
+    0,
+    1,
+    2
+   ],
+   "door_count": 3
+  }
+ ]
+}
