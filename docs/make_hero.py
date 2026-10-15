@@ -52,7 +52,7 @@ py = 320
 d.rounded_rectangle([40*SCALE, py*SCALE, 700*SCALE, (py+190)*SCALE], radius=12*SCALE, fill="#161b22", outline="#30363d", width=SCALE)
 d.text((60*SCALE, (py+16)*SCALE), "verify report — shipped with every model", fill="#8b949e", font=f_sub)
 report = [
-    ("boards",            "25 == graph nodes", "#7ee787"),
+    ("boards",            "19 == graph nodes", "#7ee787"),
     ("interference",      "[]  exact solid common(), cut-exempt", "#7ee787"),
     ("extents x,y,z",     "[0,1200] [2,580] [0,2400]", "#7ee787"),
     ("groove volume",     "== depth x width x length (exact)", "#7ee787"),

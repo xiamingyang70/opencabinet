@@ -1,0 +1,86 @@
+{
+ "passed": true,
+ "board_count": 22,
+ "node_count": 31,
+ "edge_count": 34,
+ "rod_count": 3,
+ "space_count": 8,
+ "operator_use_count": 5,
+ "undeclared_aabb_overlap_count": 0,
+ "role_counts": {
+  "back": 1,
+  "bottom": 1,
+  "door": 4,
+  "fold_shelf": 4,
+  "hang_rod": 3,
+  "plinth_front": 1,
+  "plinth_rear": 1,
+  "plinth_side_left": 1,
+  "plinth_side_right": 1,
+  "rod_socket_left": 3,
+  "rod_socket_right": 3,
+  "side_left": 1,
+  "side_right": 1,
+  "top": 1,
+  "upper_shelf": 3,
+  "vertical_partition": 2
+ },
+ "invariants": [
+  {
+   "name": "I1_unique_ids",
+   "passed": true,
+   "details": []
+  },
+  {
+   "name": "I2_spaces_inside_parent",
+   "passed": true,
+   "details": []
+  },
+  {
+   "name": "I3_node_space_operator_ownership",
+   "passed": true,
+   "details": []
+  },
+  {
+   "name": "I4_nodes_inside_cabinet",
+   "passed": true,
+   "details": []
+  },
+  {
+   "name": "I5_connection_references_and_uniqueness",
+   "passed": true,
+   "details": {
+    "missing_references": [],
+    "duplicate_edges": []
+   }
+  },
+  {
+   "name": "I6_no_undeclared_aabb_overlap",
+   "passed": true,
+   "details": []
+  }
+ ],
+ "layout_feasibility": {
+  "status": "solved",
+  "passed": true,
+  "errors": [],
+  "missing_parameters": []
+ },
+ "facade_partition_alignment": {
+  "passed": true,
+  "status": "passed",
+  "door_count": 4,
+  "door_width": 498.125,
+  "seam_centers": [
+   499.375,
+   1000.0,
+   1500.625
+  ],
+  "partition_centers": [
+   669.67,
+   1330.34
+  ],
+  "boundary_bindings": [],
+  "errors": []
+ }
+}
