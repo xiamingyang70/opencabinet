@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import math
+import sys
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -208,7 +209,7 @@ def _solve_door_count(spec):
         if not 400.0 - EPS <= door_width <= 500.0 + EPS:
             # 样式优先（程总 2026-10-04）：门数由样式决定时，门宽越界只告警不拦截
             print("WARN_DOOR_WIDTH explicit door_count=%d -> %.3f mm outside 400..500 (style-first)"
-                  % (count, door_width))
+                  % (count, door_width), file=sys.stderr)
         return count, door_width
 
     if not valid_counts:

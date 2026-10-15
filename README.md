@@ -1,5 +1,7 @@
 # OpenCabinet Wardrobe
 
+![OpenCabinet: solve → export → verify](docs/hero.png)
+
 **Parametric wardrobe generator with verified structural correctness.**
 
 Describe a wardrobe in plain JSON (or one sentence, via any MCP-capable AI chat app), get back:

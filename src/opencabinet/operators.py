@@ -1,6 +1,7 @@
 # operators.py
 from __future__ import annotations
 
+import sys
 from copy import deepcopy
 from typing import Any, Callable, Mapping, Sequence
 
@@ -553,7 +554,7 @@ def emit_door_row(spec, space, params, instance_id):
         raise ValueError("Door-row width is invalid")
     if params.get("enforce_width", True) and not 400 <= door_w <= 500:
         # 样式优先（程总 2026-10-04）：越界只告警
-        print("WARN_DOOR_WIDTH row door_w=%.3f outside 400..500 (style-first)" % door_w)
+        print("WARN_DOOR_WIDTH row door_w=%.3f outside 400..500 (style-first)" % door_w, file=sys.stderr)
 
     sid, op = space["id"], "door_row.v1"
     nodes, edges = [], []
