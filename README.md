@@ -28,6 +28,13 @@ Every generated wardrobe passes all of:
 | Back-panel grooves real | Groove volume cross-checked against expected `depth × width × length` |
 | Layout feasibility | Bay widths + partition thicknesses must sum to width exactly; door seams must agree with bay boundaries |
 
+## FreeCAD addon (GUI)
+
+Prefer working inside FreeCAD? Install the [**OpenCabinetEngine addon**](https://github.com/xiamingyang70/OpenCabinetEngine):
+fill in width / depth / height / bays in a task panel, and it solves the layout
+(door seams automatically land on partition centers), runs the same structural
+gates, and builds the grooved solids in your document.
+
 ## Install
 
 ```bash
