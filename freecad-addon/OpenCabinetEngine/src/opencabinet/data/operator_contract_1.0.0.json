@@ -1,0 +1,653 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "unitcab/operator-contract-1.0.0",
+  "title": "UnitCab Semantic Contract",
+  "$defs": {
+    "Box": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "z",
+        "w",
+        "d",
+        "h"
+      ],
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        },
+        "w": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "d": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "h": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "ExprBox": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "z",
+        "w",
+        "d",
+        "h"
+      ],
+      "properties": {
+        "x": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "y": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "z": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "w": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "d": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "h": {
+          "type": [
+            "number",
+            "string"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "CabinetSpec": {
+      "type": "object",
+      "required": [
+        "id",
+        "cabinet_type",
+        "width",
+        "depth",
+        "height",
+        "functions"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "cabinet_type": {
+          "type": "string"
+        },
+        "width": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "depth": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "height": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "board_thickness": {
+          "type": "number",
+          "default": 18
+        },
+        "gap": {
+          "type": "number",
+          "default": 2.5
+        },
+        "back": {
+          "enum": [
+            "grooved_10",
+            "none"
+          ]
+        },
+        "plinth_height": {
+          "type": "number",
+          "minimum": 0,
+          "default": 60
+        },
+        "functions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "style": {
+          "type": "object"
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "evidence_policy": {
+          "enum": [
+            "required",
+            "preferred",
+            "off"
+          ],
+          "default": "required"
+        }
+      },
+      "additionalProperties": true
+    },
+    "Space": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "bbox"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "cabinet",
+            "structural",
+            "interior",
+            "drawer_column",
+            "open_bay",
+            "hanging_bay",
+            "door_front",
+            "reserved"
+          ]
+        },
+        "bbox": {
+          "$ref": "#/$defs/Box"
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "front": {
+          "enum": [
+            "y_min",
+            "y_max"
+          ]
+        },
+        "functions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "status": {
+          "enum": [
+            "available",
+            "occupied",
+            "reserved"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "Interface": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "face"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "support",
+            "attach",
+            "align",
+            "front",
+            "back",
+            "service",
+            "motion"
+          ]
+        },
+        "face": {
+          "enum": [
+            "x_min",
+            "x_max",
+            "y_min",
+            "y_max",
+            "z_min",
+            "z_max"
+          ]
+        },
+        "box": {
+          "$ref": "#/$defs/ExprBox"
+        },
+        "accepts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Evidence": {
+      "type": "object",
+      "required": [
+        "source",
+        "metric"
+      ],
+      "properties": {
+        "source": {
+          "enum": [
+            "webcad_db",
+            "golden_case",
+            "rule"
+          ]
+        },
+        "metric": {
+          "type": "string"
+        },
+        "query_or_case": {
+          "type": "string"
+        },
+        "sample_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "distribution": {
+          "type": "object"
+        },
+        "snapshot_hash": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "Operator": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "input_spaces",
+        "occupancy",
+        "interfaces",
+        "clearance_rules",
+        "cabinet_types",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_.-]+$"
+        },
+        "version": {
+          "type": "string"
+        },
+        "level": {
+          "enum": [
+            "construction",
+            "function",
+            "product"
+          ]
+        },
+        "input_spaces": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "kind"
+            ],
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "min_w": {
+                "type": "number"
+              },
+              "min_d": {
+                "type": "number"
+              },
+              "min_h": {
+                "type": "number"
+              },
+              "functions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "occupancy": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ExprBox"
+          }
+        },
+        "interfaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Interface"
+          }
+        },
+        "clearance_rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "when",
+              "action"
+            ],
+            "properties": {
+              "when": {
+                "type": "string"
+              },
+              "action": {
+                "enum": [
+                  "split",
+                  "shorten",
+                  "omit",
+                  "offset",
+                  "reject"
+                ]
+              },
+              "target_role": {
+                "type": "string"
+              },
+              "expression": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "cabinet_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "produces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "OperatorUse": {
+      "type": "object",
+      "required": [
+        "id",
+        "operator_id",
+        "space_ids",
+        "params"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "operator_id": {
+          "type": "string"
+        },
+        "space_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "params": {
+          "type": "object"
+        },
+        "score": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SemanticAssembly": {
+      "type": "object",
+      "required": [
+        "spec_id",
+        "spaces",
+        "operators"
+      ],
+      "properties": {
+        "spec_id": {
+          "type": "string"
+        },
+        "spaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Space"
+          }
+        },
+        "operators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OperatorUse"
+          }
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "from",
+              "type",
+              "to"
+            ],
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "contains",
+                  "adjacent",
+                  "supports",
+                  "aligns",
+                  "serves",
+                  "excludes"
+                ]
+              },
+              "to": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "candidate_score": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object",
+          "description": "S1: solve_status / solve_errors / solve_warnings / missing_parameters / layout_contract_version / boundary_bindings"
+        }
+      },
+      "additionalProperties": false
+    },
+    "BoardNode": {
+      "type": "object",
+      "required": [
+        "uid",
+        "role",
+        "bbox",
+        "space_id",
+        "operator_id"
+      ],
+      "properties": {
+        "uid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "bbox": {
+          "$ref": "#/$defs/Box"
+        },
+        "space_id": {
+          "type": "string"
+        },
+        "operator_id": {
+          "type": "string"
+        },
+        "material": {
+          "type": "string"
+        },
+        "grain": {
+          "enum": [
+            "x",
+            "y",
+            "z",
+            "none"
+          ]
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "case_id": {
+              "type": "string"
+            },
+            "source_board_id": {
+              "type": "string"
+            },
+            "rule_id": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "BoardEdge": {
+      "type": "object",
+      "required": [
+        "a",
+        "b",
+        "type"
+      ],
+      "properties": {
+        "a": {
+          "type": "string"
+        },
+        "b": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "butt",
+            "support",
+            "groove",
+            "dado",
+            "overlay",
+            "fastener",
+            "alignment",
+            "clearance"
+          ]
+        },
+        "interface_a": {
+          "type": "string"
+        },
+        "interface_b": {
+          "type": "string"
+        },
+        "expected_contact_mm2": {
+          "type": "number",
+          "minimum": 0
+        },
+        "allowed_overlap_mm3": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "tolerance": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.1
+        }
+      },
+      "additionalProperties": false
+    },
+    "BoardGraph": {
+      "type": "object",
+      "required": [
+        "nodes",
+        "edges"
+      ],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BoardNode"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BoardEdge"
+          }
+        },
+        "assembly_bbox": {
+          "$ref": "#/$defs/Box"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

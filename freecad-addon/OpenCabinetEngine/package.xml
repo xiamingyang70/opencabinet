@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package format="1">
+  <name>OpenCabinetEngine</name>
+  <description>Verified wardrobe generation backed by the opencabinet deterministic solver. Simplified inputs, seam-aligned column widths solved automatically, gate reports on failure.</description>
+  <version>0.1.0</version>
+  <maintainer email="24783995@qq.com">cheng</maintainer>
+  <license file="LICENSE">MIT</license>
+</package>
