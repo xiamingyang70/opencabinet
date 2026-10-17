@@ -16,12 +16,12 @@ class OpenCabinetEngineWB(Workbench):
     def Initialize(self):
         import FreeCADGui
         import oc_panel  # noqa: F401  (registers command below)
-        FreeCADGui.addCommand("OpenCabinetEngine_Generate", {
+        FreeCADGui.addCommand("OCE_StandAlone_Generate", {
             "Label": "Generate Wardrobe",
             "ToolTip": "Simplified inputs -> opencabinet solver -> verified boards",
             "Command": "import oc_panel; oc_panel.open_panel()",
         })
-        self.appendToolbar("OpenCabinet", ["OpenCabinetEngine_Generate"])
+        self.appendToolbar("OpenCabinet", ["OCE_StandAlone_Generate"])
 
     def GetClassName(self):
         return "Gui::PythonWorkbench"
