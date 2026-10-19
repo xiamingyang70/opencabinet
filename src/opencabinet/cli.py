@@ -23,11 +23,27 @@ def _load(path: str):
 
 def cmd_solve(args: argparse.Namespace) -> int:
     from .solver import solve_to_directory
+    from .cutlist import build_cutlist, write_outputs
 
     spec = _load(args.spec)
     os.makedirs(args.output, exist_ok=True)
     result = solve_to_directory(spec, args.output)
     report = result["self_check"]
+    # cut-list is derived from the same solved graph (non-fatal on failure)
+    try:
+        cutlist = build_cutlist(result["board_graph"], spec)
+        paths = write_outputs(cutlist, args.output)
+        report["cutlist"] = {
+            "part_count": cutlist["part_count"],
+            "unique_parts": cutlist["unique_parts"],
+            "oversize_ok": cutlist["oversize_ok"],
+            "csv": paths["csv"],
+        }
+        if not cutlist["oversize_ok"]:
+            report["passed"] = False
+            report["oversize_parts"] = cutlist["oversize_parts"]
+    except Exception as exc:  # noqa: BLE001 - report but don't mask the solve
+        report["cutlist_error"] = str(exc)
     print(json.dumps(report, ensure_ascii=False, indent=1))
     return 0 if report.get("passed") else 1
 
